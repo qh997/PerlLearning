@@ -5,21 +5,22 @@ use 5.010;
 frist(<>);
 
 sub frist {
-    print "this @_\n";
+    print "These are :\n@_\n";
     second(@_);
 }
 
 sub second {
-    print $_."\n" for @_;
+    print $_ for @_;
 }
+print "\n";
 
-@ARGV = qw(sss);
+@ARGV = qw(text01);
 while (<>) {
     chomp;
     print "It was $_\n";
 }
 
-@ARGV = qw(sss);
+@ARGV = qw(text01);
 print <>, "\n";
 
 @array = qw(123 321 222 111 444);
@@ -40,3 +41,15 @@ printf "%g %g %g %g\n", 5/2, 51/17, 51**17, $user;
 my @items = qw(wilma dino pebbles);
 my $format = "The items are:\n".("%10s\n" x @items);
 printf $format, @items;
+
+1 && warn "I am dead.";
+1 && warn "$0 : I am dead.\n";
+
+print '__FILE__ = ', __FILE__, "\n";
+print '__LINE__ = ', __LINE__, "\n";
+
+#($package, $filename, $line) = caller;
+#print "$package, $filename, $line\n";
+
+say "Hello!";
+say $user;
