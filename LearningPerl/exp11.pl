@@ -2,9 +2,13 @@
 
 use 5.010;
 use File::Basename qw();
+use File::Spec;
 
-my $name = "/usr/local/bin/perl";
+my $name = $0;
 my $basename = File::Basename::basename $name;
 my $dirname = File::Basename::dirname $name;
 say "Basename = $basename";
 say "Dirname  = $dirname";
+
+my $new_name = File::Spec -> catfile($dirname, $basename);
+say $new_name;
