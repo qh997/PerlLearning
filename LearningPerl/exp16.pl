@@ -58,7 +58,7 @@ $SIG{'INT'} = 'my_int_handler_wait';
 say "Now I will sleep...";
 while (1) {
     say "Sleeping...";
-    sleep 2;
+    sleep 5;
     say "Wake up!";
     if ($int_count) {
         die "interrupted, exiting...\n";
