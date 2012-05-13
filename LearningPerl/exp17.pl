@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+# 第十七章 高级 Perl 技巧
 
 use 5.010;
 
@@ -15,7 +16,7 @@ say "@odd_numbers";
 say "@odd_numbers";
 
 # 切片
-my $mtime = (stat 'text01')[9];
+my $mtime = (stat $0)[9];
 say $mtime;
 
 @names = qw(gengs.s gs gengshuang gengs shuang.g s.geng);
