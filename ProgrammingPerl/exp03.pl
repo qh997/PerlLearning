@@ -50,9 +50,13 @@ say $^T; # 脚本的开始时间
 # 
 # 注：如果不想拖到下一次，那么就用范围操作符的另外一个版本：“...”（三个小数点，而不是两个）。
 
-like_awk_sed(1, 0);
+like_awk_sed(0, 0);
+like_awk_sed(1, 1);
 like_awk_sed(0, 0);
 like_awk_sed(0, 1);
+like_awk_sed(0, 0);
+like_awk_sed(1, 0);
+like_awk_sed(0, 0);
 like_awk_sed(1, 1);
 like_awk_sed(0, 0);
 
@@ -73,6 +77,29 @@ while (<FH>) {
     say "[$_]" if (1 .. /^$/);
 }
 say '-' x 20;
-# 
+
+# 条件操作符
 $n = 2;
 printf "I have %d camel%s.\n", $n , $n == 1 ? "" : "s";
+
+# 也可以用来赋值
+($a_or_b ? $a : $b) = $c;
+
+# 赋值操作符
+($global, $constant) = (1, 4);
+($tmp = $global) += $constant;
+say $tmp;
+say $global;
+# 等效于
+$tmp = $global + $constant;
+
+# 对副本的修改
+$old = 'Hello foo world!';
+($new = $old) =~ s/foo/bar/;
+say "$old => $new";
+
+
+$a = 0;
+$b = 1;
+say ($a xor $b);
+say (!$a != !$b);
