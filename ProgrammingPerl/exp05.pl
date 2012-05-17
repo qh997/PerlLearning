@@ -138,8 +138,73 @@ elsif ("EDIT"  =~ /^\Q$answer/i) {say "Action is edit."}
 
 chomp($pattern = <STDIN>);
 $_ = "\t22342 i am here";
-say "[$`]<$&>[$']" if /$pattern/o;
+say "[$`]<$&>[$']" if /$pattern/;
 
 # 正则表达式编译器
-use re "debug";
+#use re "debug";
 "Smeagol" =~ /^Sm(.*)g[aeiou]l$/;
+say '-' x 45;
+
+"fox" =~ /x+/;
+say '-' x 45;
+
+"hello gengs" =~ /\s+(?:c|g)s/;
+say '-' x 45;
+"xxxxxxx xxxxxyyyyy" =~ /x*y*/;
+say '-' x 45;
+
+$a = 'nobody';
+$b = 'bodysnatcher';
+if ("$a $b" =~ /^(\w+?)(\w+) \2(\w+)$/) {
+    say "$2 overlaps in $1-$2-$3";
+}
+say '-' x 45;
+no re "debug";
+
+# 谜一样的模式
+# 环顾断言
+$_ = "Paris in THE THE THE THE spring.";
+s/\b(\w+)\s+(?=\1\b)//gi;
+say;
+$_ = " The clothes you DON DON't fit.";
+s/\b(\w+)\s+(?=\1\b(?!'\w))//gi;
+say;
+$_ = " that that particular";
+s/\b(\w+)\s+(?=\1\b(?!'\w|\sparticular))//gi;
+say;
+@thatthat = qw(particular nation);
+local $" = '|';
+$_ = " that that particular";
+s/\b(\w+)\s+(?=\1\b(?!'\w|\s(?:@thatthat)))//gi;
+say;
+
+$_ = 'weird';
+s/(?<!c)ei/ie/; # 除了在 C 后面以外，I 在 E 前面
+say;
+
+# 非回溯子模式
+# 捕获连续行
+$_ = <<'END';
+sh = Makefiel.SH xxx \
+    line 2 \
+    line 3
+newline
+abcde \
+fghi \
+123
+xxxxxx
+END
+
+while (/((?>.+)(?:(?<=\\)\n.*)+)/g) {
+    say "GOT $. : $1\n";
+}
+
+# 替换计算
+$_ = "Preheat oven to 233C.";
+s/\b(\d+\.?\d*)C\b/int($1 * 1.8 + 32)."F"/ge;
+say;
+
+$_ = "I have 4 + 9 / 3 dollars an 8 / 2 + 1 cents.";
+s/((?:\d+\.?\d*\s*[-+*\/]\s*)+\d+\.?\d*)/$1/gee;
+say "[$`]<$&>[$']";
+say;
