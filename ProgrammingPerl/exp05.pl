@@ -196,7 +196,7 @@ xxxxxx
 END
 
 while (/((?>.+)(?:(?<=\\)\n.*)+)/g) {
-    say "GOT $. : $1\n";
+    say "GOT : $1\n";
 }
 
 # 替换计算
@@ -208,3 +208,45 @@ $_ = "I have 4 + 9 / 3 dollars an 8 / 2 + 1 cents.";
 s/((?:\d+\.?\d*\s*[-+*\/]\s*)+\d+\.?\d*)/$1/gee;
 say "[$`]<$&>[$']";
 say;
+say '-' x 45;
+
+# 匹配时代码计算
+"glyph" =~ /.+(?{say "hi"})./;
+say '-' x 45;
+"glyph" =~ /(.(?{say "hi"}))+./;
+
+$_ = 'lothlorien';
+$i = 0;
+/(.(?{$i++}))*lori/;
+say $i;
+
+$_ = 'lothlorien';
+$i = 0;
+$result;
+/(.(?{local $i = $i + 1}))*lori(?{$result = $i})/;
+say $result;
+
+# 递归匹配括号
+$np = qr/
+    (?{print "IN\n"})
+    \(                    # 括号开始
+    ((?:
+        (?>[^()])         # 如果是非括号字符就吃进，并固化分组
+        (?{print "$&\n"})
+        |                 # 否则
+        (??{$np})         # 用匹配的小括号对分组
+        (?{print "$&\n"}) 
+    )*)
+    \)                    # 括号结束
+    (?{print "OUT : [$1] $&\n"})
+/x;
+say 'OK' if 'myFunc(1,(2*(3+4)*(1+6),5),8)here' =~ /^[^()]*$np[^()]*$/;
+
+# 条件内插
+$x = 'ATAAGCATG';
+$y = 'TTTTCGATG';
+for ($x, $y) {
+    if (/[ATGC]+?(?(?<=AA)G|C)/) {
+        say $&;
+    }
+}
