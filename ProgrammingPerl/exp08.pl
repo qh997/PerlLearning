@@ -104,6 +104,7 @@ say "My sub returned @{[scalar mysub(1, 2, 3)]} now.";
 sub mysub {
     return map {$_ + 1} @_;
 }
+say '-' x 45;
 
 ## 闭包
 {
@@ -127,6 +128,7 @@ $g = make_saying("Greetings");
 
 $f->("world");
 $g->("earthings");
+say '-' x 45;
 
 ### 用闭包作函数模板
 @colors = qw(red blue green yellow orange purple wiolet);
@@ -137,3 +139,60 @@ for my $name (@colors) {
 say red('gengs', 'sgeng');
 say BLUE('sgeng', 'gengs');
 say wiolet('sgeng', 'gengs');
+say '-' x 45;
+
+### 嵌套子例程
+sub outer {
+    my $x = $_[0] + 35;
+    my $inner = sub {return $x * 19};
+    return $x + $inner->();
+}
+say outer(2);
+say '-' x 45;
+
+# 符号引用
+our $value = "global";
+{
+    my $value = "private";
+    print "Inside, mine is ${value},";
+    print "but ours is ${'value'}.\n";
+}
+print "Outside, ${value} is again ${'value'}.\n";
+say '-' x 45;
+
+# 大括号、中括号和引号
+$push = "pop on ";
+say "${push}over";
+say '-' x 45;
+
+## 引用不能当作散列键用
+use Tie::RefHash;
+tie my %h, 'Tie::RefHash';
+%h = (
+    ["this", "here"]  => "at home",
+    ["that", "there"] => "elsewhere",
+);
+while (my ($keyref, $value) = each %h) {
+    say "@$keyref is $value";
+}
+say '-' x 45;
+
+tie %h, 'Tie::RefHash';
+$a = [];
+$b = {};
+$c = \*main;
+$d = \"gunk";
+$e = sub { 'foo' };
+%h = ($a => 1, $b => 2, $c => 3, $d => 4, $e => 5);
+$a->[0] = 'foo';
+$b->{foo} = 'bar';
+for (keys %h) {
+    print ref($_), "\n";
+}
+say '-' x 45;
+
+tie %h, 'Tie::RefHash::Nestable';
+$h{$a}->{$b} = 1;
+for (keys %h, keys %{$h{$a}}) {
+    print ref($_), "\n";
+}
