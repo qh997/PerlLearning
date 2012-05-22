@@ -9,7 +9,6 @@ our $VERSION = 0.0.1;
 our @ISA = qw(Girl);
 
 my $secret_room;
-our $Master;
 
 sub new {
     my $invocant = shift;
@@ -46,8 +45,11 @@ sub virgin : lvalue {
     $self->{virgin};
 }
 
-sub Master : lvalue {
-    $Master;
+{
+    my $Master;
+    sub Master : lvalue {
+        $Master;
+    }
 }
 
 sub knock {

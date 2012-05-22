@@ -141,6 +141,8 @@ say $pen2->(RACE => '1234');
 ## 新技巧
 $pet3->virgin = 'MVM';
 say $pet3->virgin;
+
+# 管理类数据
 Echelon->Master = 'gengs';
 say $pet3->Master;
 say $pet2->Master;
