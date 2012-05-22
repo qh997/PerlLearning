@@ -2,12 +2,6 @@
 
 use 5.010;
 sub ps {say '-' x 45};
-sub pw {
-    local $_ = shift;
-    ps;
-    say ' ' x ((45 - length) / 2), $_;
-    ps;
-};
 
 say "__PACKAGE__ = ".__PACKAGE__;
 ps;
@@ -53,4 +47,28 @@ sub fillerup {
 ps;
 
 *PI = \3.14159265358979323;
+*PI = [a, b, c, d];
 say '$PI = '.$PI;
+say '@PI = '.@PI;
+ps;
+
+{
+    package inside;
+
+    say __PACKAGE__;
+    *PI = \@main::PI;
+    *PI = \$main::PI;
+    say @PI;
+    say $PI;
+
+    $foobar = '007';
+}
+
+*fb = *inside::foobar;
+say $fb;
+ps;
+
+my $sym = 'richard';
+say ${$sym};
+say ${$main::{'richard'}};
+say ${$inside::{"foobar"}};
