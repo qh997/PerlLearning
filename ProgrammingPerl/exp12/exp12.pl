@@ -17,7 +17,7 @@ say $obj;
 say ref $obj;
 ps;
 
-my $pet = Girl->adoption(name => 'shadowfax');
+my $pet = Girl->adoption(name => 'lijia');
 say $pet;
 say $pet->{name};
 
@@ -111,20 +111,36 @@ $pet3->knock;
 # 管理实例数据
 say $pet3->name('changxingye');
 
-# 用 use fields 声明的字段
+## 用 use fields 声明的字段
 use Person;
 my $my_slave = Person->new;
 say $my_slave->name('wangxues');
 
-# 用 Class::Struct 生成类
+## 用 Class::Struct 生成类
 use Woman;
 my $my_beau = Woman->new;
 $my_beau->name('xuejj');
 say $my_beau->name;
 say $my_beau->Woman::name;
 
-# 用闭包生成存取器
+## 用闭包生成存取器
 use Person1;
 my $pen1 = Person1->new;
-$pen1->name('bread');
+$pen1->name('nacy');
 say $pen1->name;
+
+## 将闭包用于私有对象
+use Person2;
+my $pen2 = Person2->new;
+$pen2->name('guoshuai');
+say $pen2;
+say $pen2->name;
+say $pen2->(RACE => '1234');
+#say $pen2->(sex => 'very');
+
+## 新技巧
+$pet3->virgin = 'MVM';
+say $pet3->virgin;
+Echelon->Master = 'gengs';
+say $pet3->Master;
+say $pet2->Master;

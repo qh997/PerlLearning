@@ -9,6 +9,7 @@ our $VERSION = 0.0.1;
 our @ISA = qw(Girl);
 
 my $secret_room;
+our $Master;
 
 sub new {
     my $invocant = shift;
@@ -38,6 +39,15 @@ sub snarl {
             $self->$code(@_) unless $seen{$code}++;
         }
     }
+}
+
+sub virgin : lvalue {
+    my $self = shift;
+    $self->{virgin};
+}
+
+sub Master : lvalue {
+    $Master;
 }
 
 sub knock {
