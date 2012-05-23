@@ -129,3 +129,9 @@ say "@{$ahash{xy}}";
 ps;
 
 ## 散列绑定方法
+use DotFiles;
+(tie my %dot, 'DotFiles')->debug;
+say for keys %dot;
+delete $dot{minttyrc};
+
+# 绑定文件句柄
