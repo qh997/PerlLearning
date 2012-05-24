@@ -54,6 +54,7 @@ print $@ if $@;
 ps;
 
 # 文件
+## 文件锁定
 use Fcntl qw(:DEFAULT :flock);
 open(FH, "< exp16.txt") or die "can't open exp16.txt: $!";
 flock(FH, LOCK_SH) or die "can't lock exp16.txt: $!";
@@ -64,4 +65,20 @@ flock(FH, LOCK_EX)
     or die "can't lock exp16.txt: $!";
 truncate(FH, 0)
     or die "can't truncate exp16.txt: $!";
- # Now writing...
+print FH "abc\ndef\n";
+close FH;
+ps;
+
+## 传递文件句柄
+open(INPUT, "< exp16.txt") or die "can't open exp16.txt: $!";
+if (my $pid = fork) {
+    waitpid($pid, 0);
+}
+else {
+    defined $pid or die "can't fork: $!";
+    while (<INPUT>) {print "$.: $_";}
+    exit;
+}
+
+my $fdspec = '<&='.fileno(INPUT);
+system('nl', $fdspec);
