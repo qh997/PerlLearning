@@ -132,6 +132,60 @@ ps;
 use DotFiles;
 (tie my %dot, 'DotFiles')->debug;
 say for keys %dot;
-delete $dot{minttyrc};
+#delete $dot{minttyrc};
+ps;
 
 # 绑定文件句柄
+package ReversePrint;
+
+use strict;
+use warnings;
+use 5.010;
+
+sub TIEHANDLE {bless [], shift}
+sub PRINT {my $self = shift; push @$self, join ' ', @_}
+sub PRINTF {my $self= shift; push @$self, sprintf shift, @_;}
+sub READLINE {my $self = shift; return pop @$self}
+
+package main;
+my $m = "--MORE--\n";
+tie *REV, "ReversePrint";
+
+print REV "The fox is now dead. $m";
+printf REV <<"END", int rand 10000000;
+The quick brown fox jumps over
+over the lazy dog %d times!
+END
+
+print while <REV>;
+ps;
+
+## 文件句柄绑定方法
+use Shout;
+tie(*FOO, 'Shout', ">foobar");
+print FOO "hello\n";
+seek FOO, 0, 0;
+my @lines = <FOO>;
+close FOO;
+open FOO, "+<", "foobar";
+seek(FOO, 8, 0);
+sysread(FOO, my $inbuf, 5);
+say "found $inbuf";
+seek(FOO, -5, 1);
+syswrite(FOO, "ciao!\n", 6);
+untie(*FOO);
+ps;
+
+## 创建文件句柄
+use Open2;
+tie *CALC, 'Open2', "bc -l";
+my $sum = 2;
+for (1..7) {
+    print CALC "$sum * $sum\n";
+    $sum = <CALC>;
+    print "$_ : $sum";
+    chomp $sum;
+}
+say tied(*CALC);
+untie *CALC;
+say tied(*CALC);

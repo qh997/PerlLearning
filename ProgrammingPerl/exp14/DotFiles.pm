@@ -120,7 +120,7 @@ sub NEXTKEY {
     return scalar each %{$self->{CONTENTS}};
 }
 
-sub DESTORY {
+sub DESTROY {
     carp "$whowasi" if $DEBUG;
 }
 
