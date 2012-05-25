@@ -79,6 +79,3 @@ else {
     while (<INPUT>) {print "$.: $_";}
     exit;
 }
-
-my $fdspec = '<&='.fileno(INPUT);
-system('nl', $fdspec);
