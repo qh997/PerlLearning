@@ -1,0 +1,174 @@
+body,
+html {
+   margin:0;
+   padding:0;
+   font-family: Georgia, "Times New Roman", Times, serif;
+   color:#000;
+   background-color: #ddd;
+}
+
+#wrap {
+   width:1200px;
+   margin:0 auto;
+   background: #CFECEC;
+}
+
+#header {
+   padding:5px 10px;
+   background:#ddd;
+}
+
+h1 {
+   margin:0;
+}
+
+h2 {
+   margin:0 0 1em;
+}
+
+#nav {
+   padding:5px 10px;
+   background:#150517;
+}
+
+#nav ul {
+   margin:0;
+   padding:0;
+   list-style:none;
+}
+
+#nav li {
+   display:inline;
+   margin:0;
+   padding: 5px;
+}
+
+/* modify by zhengjw - s */
+/*
+#main {
+   float:left;
+   padding:10px;
+   width:880px;
+   background:#9c9;
+}
+*/
+#main {
+   float:both;
+   padding:10px;
+   background:#9c9;
+}
+/* modify by zhengjw - e */
+
+
+#summary {
+   float:left;
+   padding:10px;
+   width:880px;
+   background:#9c9
+}
+
+#main ul {
+   margin:0;
+   padding:0;
+   list-style:none;
+}
+
+#main li {
+   display:inline;
+   margin:0;
+   padding: 5px;
+}
+
+#footer {
+   clear:both;
+   padding:10px;
+   background:#150517;
+   font-family: Serif;
+}
+
+#footer p {
+   margin:0;
+}
+
+#footer a {
+   font-size: 18px;
+   color: grey;
+   margin-left: 5px;
+}
+
+#footer a:visited {
+   color: yellow;
+}
+
+#footer a.current {
+   color: white;
+   font-size: 22px;
+   font-weight:bold;
+}
+
+#sidebar {
+   float:right;
+   padding:5px 5px 5px 5px;
+   width:280px;
+   background-color: #CFECEC;
+}
+#chart_table{
+   border: 1px;
+   border-style: solid;
+   color: black;
+}
+
+* html #footer {
+   height:1px;
+}
+
+table.test
+{
+   border-collapse:collapse;
+}
+table.condition
+{
+   border: none;
+   color: grey;
+}
+table,th, td
+{
+   border: none;
+}
+table.summary
+{
+   #border-style: solid;
+   #border-width: 1px;
+   color: black;
+   width: 100%;
+   border-collapse:collapse;;
+   font-size: 13px;
+}
+th.title
+{
+   padding: 3px 5px;
+   color: black;
+   background-color: #dbc052;
+   color: black;
+   text-align: center;
+}
+th, td
+{
+   padding: 2px 2px;
+}
+tr.odd
+{
+   background-color: #CFECEC
+}
+td.valid
+{
+   color: green
+}
+td.invalid
+{
+   color: red
+}
+td.message
+{
+   color: gray
+}
